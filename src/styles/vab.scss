@@ -68,7 +68,7 @@ a {
 }
 
 * {
-  transition: $base-transition;
+  // transition: $base-transition;
 }
 svg {
   transition: none;
@@ -240,9 +240,9 @@ html {
     /* 菜单结束 */
 
     /* 弹窗开始 */
-
     .el-dialog,
     .el-message-box {
+      width: 600px;
       &__body {
         border-top: 1px solid $base-border-color;
 
@@ -259,6 +259,29 @@ html {
 
       &__content {
         padding: 20px 20px 20px 20px;
+      }
+    }
+    @media screen and (max-width: 375px) {
+      .el-dialog,
+      .el-message-box {
+        width: 90%;
+        &__body {
+          border-top: 1px solid $base-border-color;
+
+          .el-form {
+            padding-right: 30px;
+          }
+        }
+
+        &__footer {
+          padding: $base-padding;
+          text-align: right;
+          border-top: 1px solid $base-border-color;
+        }
+
+        &__content {
+          padding: 20px 20px 20px 20px;
+        }
       }
     }
 

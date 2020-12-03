@@ -4,7 +4,6 @@
     :close-on-click-modal="false"
     :title="title"
     :visible.sync="dialogFormVisible"
-    width="909px"
   >
     <div class="upload">
       <el-alert
