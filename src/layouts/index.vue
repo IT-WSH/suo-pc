@@ -230,7 +230,7 @@
         margin-left: $base-left-menu-width;
         background: #f6f8f9;
         transition: $base-transition;
-
+        padding-top: 1px;
         ::v-deep {
           .fixed-header {
             @include fix-header;
@@ -252,7 +252,7 @@
 
           .app-main-container {
             width: calc(100% - #{$base-padding} - #{$base-padding});
-            margin: $base-padding auto;
+            margin: $base-padding auto 0;
             background: $base-color-white;
             border-radius: $base-border-radius;
           }

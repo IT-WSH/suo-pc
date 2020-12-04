@@ -93,6 +93,16 @@
       color: rgba(0, 0, 0, 0.45);
       text-align: center;
       border-top: 1px dashed $base-border-color;
+      padding: 1px;
+      border-top: 1px dashed transparent;
+      background: linear-gradient(white, white) padding-box,
+        repeating-linear-gradient(
+          -45deg,
+          $base-border-color 0,
+          $base-border-color 0.25em,
+          white 0,
+          white 0.75em
+        );
     }
   }
 </style>

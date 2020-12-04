@@ -48,10 +48,10 @@ const responseFake = (url, type, respond) => {
     response(req, res) {
       res.status(200)
       if (JSON.stringify(req.body) !== '{}') {
-        console.log(chalk.green(`> 请求地址：${req.path}`))
-        console.log(chalk.green(`> 请求参数：${JSON.stringify(req.body)}\n`))
+        // console.log(chalk.green(`> 请求地址：${req.path}`))
+        // console.log(chalk.green(`> 请求参数：${JSON.stringify(req.body)}\n`))
       } else {
-        console.log(chalk.green(`> 请求地址：${req.path}\n`))
+        // console.log(chalk.green(`> 请求地址：${req.path}\n`))
       }
       res.json(mock(respond instanceof Function ? respond(req, res) : respond))
     },
@@ -81,7 +81,6 @@ module.exports = (app) => {
       if (event === 'change' || event === 'add') {
         try {
           app._router.stack.splice(mockStartIndex, mockRoutesLength)
-
           Object.keys(require.cache).forEach((item) => {
             if (item.includes(mockDir)) {
               delete require.cache[require.resolve(item)]
@@ -91,7 +90,7 @@ module.exports = (app) => {
           mockRoutesLength = mockRoutes.mockRoutesLength
           mockStartIndex = mockRoutes.mockStartIndex
         } catch (error) {
-          console.log(chalk.red(error))
+          // console.log(chalk.red(error))
         }
       }
     })

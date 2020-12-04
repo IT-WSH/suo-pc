@@ -1,5 +1,4 @@
 /**
-''
  * @description 代码生成机
  */
 const viewGenerator = require('zx-templates/view/prompt')

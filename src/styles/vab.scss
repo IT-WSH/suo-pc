@@ -70,8 +70,10 @@ a {
 * {
   // transition: $base-transition;
 }
+
 svg {
   transition: none;
+
   * {
     transition: none;
   }
@@ -108,7 +110,7 @@ html {
     }
 
     /* el-tag开始 */
-    .el-tag + .el-tag {
+    .el-tag+.el-tag {
       margin-left: 10px;
     }
 
@@ -116,6 +118,7 @@ html {
 
     /* markdown编辑器开始 */
     .editor-toolbar {
+
       .no-mobile,
       .fa-question-circle {
         display: none;
@@ -154,10 +157,11 @@ html {
       .app-main-container {
         @include base-scrollbar;
 
-        > [class*='-container'] {
+        >[class*='-container'] {
           * {
             transition: none;
           }
+
           padding: $base-padding;
           background: $base-color-white;
         }
@@ -174,7 +178,7 @@ html {
       }
 
       .peg {
-        box-shadow: 0 0 10px $base-color-blue, 0 0 5px $base-color-blue !important;
+        box-shadow: 0 0 10px $base-color-blue, 0 0 10px $base-color-blue !important;
       }
     }
 
@@ -243,6 +247,7 @@ html {
     .el-dialog,
     .el-message-box {
       width: 600px;
+
       &__body {
         border-top: 1px solid $base-border-color;
 
@@ -261,10 +266,13 @@ html {
         padding: 20px 20px 20px 20px;
       }
     }
+
     @media screen and (max-width: 375px) {
+
       .el-dialog,
       .el-message-box {
         width: 90%;
+
         &__body {
           border-top: 1px solid $base-border-color;
 

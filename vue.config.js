@@ -28,8 +28,8 @@ const dayjs = require('dayjs')
 const date = dayjs().format('YYYY_M_D')
 const time = dayjs().format('YYYY-M-D HH:mm:ss')
 const productionGzipExtensions = ['html', 'js', 'css', 'svg']
-process.env.VUE_APP_TITLE = title || 'vue-admin-beautiful'
-process.env.VUE_APP_AUTHOR = author || 'chuzhixin 1204505056@qq.com'
+process.env.VUE_APP_TITLE = title || '标题'
+process.env.VUE_APP_AUTHOR = author || ''
 process.env.VUE_APP_UPDATE_TIME = time
 process.env.VUE_APP_VERSION = version
 

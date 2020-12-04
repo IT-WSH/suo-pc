@@ -111,7 +111,8 @@
         :lg="3"
         :xl="3"
       >
-        <router-link :to="item.link" target="_blank">
+        <!--  target="_blank" 打开新页面 -->
+        <router-link :to="item.link">
           <el-card class="icon-panel" shadow="never">
             <vab-icon
               :style="{ color: item.color }"
@@ -599,14 +600,8 @@
           {
             icon: 'table',
             title: '表格',
-            link: '/vab/table/comprehensiveTable',
+            link: '/vab/table',
             color: '#5cdbd3',
-          },
-          {
-            icon: 'laptop-code',
-            title: '源码',
-            link: 'https://github.com/chuzhixin/vue-admin-beautiful',
-            color: '#b37feb',
           },
           {
             icon: 'book',
