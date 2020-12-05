@@ -16,14 +16,14 @@
             <vab-remix-icon v-if="logo" class="logo" :icon-class="logo" />
           </div>
           <div class="title-tips">欢迎来到{{ title }}！</div>
-          <el-form-item style="margin-top: 40px" prop="username">
+          <el-form-item style="margin-top: 40px" prop="phone">
             <span class="svg-container svg-container-admin">
               <vab-icon :icon="['fas', 'user']" />
             </span>
             <el-input
-              v-model.trim="form.username"
+              v-model.trim="form.phone"
               v-focus
-              placeholder="请输入用户名"
+              placeholder="请输入手机号码"
               tabindex="1"
               type="text"
             />
@@ -85,7 +85,7 @@
     data() {
       const validateusername = (rule, value, callback) => {
         if ('' == value) {
-          callback(new Error('用户名不能为空'))
+          callback(new Error('号码不能为空'))
         } else {
           callback()
         }
@@ -101,11 +101,11 @@
         nodeEnv: process.env.NODE_ENV,
         title: this.$baseTitle,
         form: {
-          username: '',
+          phone: '',
           password: '',
         },
         rules: {
-          username: [
+          phone: [
             {
               required: true,
               trigger: 'blur',
@@ -145,7 +145,7 @@
       document.body.style.overflow = 'auto'
     },
     mounted() {
-      this.form.username = 'admin'
+      this.form.phone = '15992738093'
       this.form.password = '123456'
       // setTimeout(() => {
       //   this.handleLogin()
@@ -166,12 +166,12 @@
             this.loading = true
             this.$store
               .dispatch('user/login', this.form)
-              .then(() => {
+              .then((res) => {
                 const routerPath =
                   this.redirect === '/404' || this.redirect === '/401'
                     ? '/'
                     : this.redirect
-                this.$router.push(routerPath).catch(() => {})
+                this.$router.push(routerPath)
                 this.loading = false
               })
               .catch(() => {
@@ -189,9 +189,6 @@
 <style lang="scss" scoped>
   .login-container {
     height: 100vh;
-    // background: url('~@/assets/login_images/background.jpg') center center fixed
-    //   no-repeat;
-    // background-size: cover;
     background: #ffffff;
 
     .title {

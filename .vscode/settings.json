@@ -51,5 +51,6 @@
     "@": "${workspaceRoot}/src"
   },
   "files.eol": "\n",
-  "eggHelper.serverPort": 54710
+  "eggHelper.serverPort": 54710,
+  "svn.ignoreMissingSvnWarning": true
 }

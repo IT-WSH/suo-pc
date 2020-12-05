@@ -88,8 +88,8 @@
     }
 
     .footer-copyright {
-      min-height: 55px;
-      line-height: 55px;
+      min-height: 40px;
+      line-height: 40px;
       color: rgba(0, 0, 0, 0.45);
       text-align: center;
       border-top: 1px dashed $base-border-color;

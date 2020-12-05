@@ -5,13 +5,13 @@
         <el-button icon="el-icon-plus" type="primary" @click="handleAdd">
           添加
         </el-button>
-        <el-button icon="el-icon-delete" type="danger" @click="handleDelete">
+        <!-- <el-button icon="el-icon-delete" type="danger" @click="handleDelete">
           删除
         </el-button>
         <el-button type="primary" @click="testMessage">baseMessage</el-button>
         <el-button type="primary" @click="testALert">baseAlert</el-button>
         <el-button type="primary" @click="testConfirm">baseConfirm</el-button>
-        <el-button type="primary" @click="testNotify">baseNotify</el-button>
+        <el-button type="primary" @click="testNotify">baseNotify</el-button> -->
       </vab-query-form-left-panel>
       <vab-query-form-right-panel>
         <el-form
@@ -21,7 +21,10 @@
           @submit.native.prevent
         >
           <el-form-item>
-            <el-input v-model="queryForm.title" placeholder="标题" />
+            <el-input
+              v-model="queryForm.keyworld"
+              placeholder="手机号码/昵称"
+            />
           </el-form-item>
           <el-form-item>
             <el-button
@@ -49,22 +52,27 @@
         show-overflow-tooltip
         prop="id"
         label="用户ID"
+        width="300"
         align="center"
       ></el-table-column>
       <el-table-column
         show-overflow-tooltip
-        prop="username"
+        prop="nickname"
         label="用户名"
         align="center"
       ></el-table-column>
-      <el-table-column show-overflow-tooltip label="头像" align="center">
+      <el-table-column
+        show-overflow-tooltip
+        label="头像"
+        width="100"
+        align="center"
+      >
         <template #default="{ row }">
           <el-image
             v-if="imgShow"
             class="user_logo"
             :preview-src-list="imageList"
-            lazy
-            :src="row.img"
+            :src="row.imgface"
           >
             <i slot="error" class="el-icon-picture-outline"></i>
           </el-image>
@@ -72,28 +80,30 @@
       </el-table-column>
       <el-table-column
         show-overflow-tooltip
-        prop="email"
-        label="邮箱"
+        prop="phone"
+        label="电话号码"
         align="center"
       ></el-table-column>
       <el-table-column show-overflow-tooltip label="权限" align="center">
         <template #default="{ row }">
-          <el-tag
-            v-for="(item, index) in row.permissions"
-            :key="index"
-            :type="row.status | statusFilter"
-          >
-            {{ item }}
+          <el-tag v-if="row.admin" :type="row.admin.name | statusFilter">
+            {{ row.admin.name }}
           </el-tag>
+          <el-tag v-else>无权限</el-tag>
         </template>
       </el-table-column>
       <el-table-column
         show-overflow-tooltip
-        prop="datatime"
         label="修改时间"
         width="200"
         align="center"
-      ></el-table-column>
+      >
+        <template #default="{ row }">
+          <el-tag :type="'admin' | statusFilter">
+            {{ row.update_time | formatTime('yyyy-MM-dd HH:mm:ss') }}
+          </el-tag>
+        </template>
+      </el-table-column>
       <el-table-column
         show-overflow-tooltip
         label="操作"
@@ -101,21 +111,21 @@
         align="center"
       >
         <template #default="{ row }">
-          <el-button type="warning" @click="handleEdit(row)">编辑</el-button>
+          <el-button type="warning" @click="handleEdit(row)">查看</el-button>
           <el-button type="danger" @click="handleDelete(row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
     <el-pagination
       :background="background"
-      :current-page="queryForm.pageNo"
+      :current-page="queryForm.pageIndex"
       :layout="layout"
       :page-size="queryForm.pageSize"
       :total="total"
       @current-change="handleCurrentChange"
       @size-change="handleSizeChange"
     ></el-pagination>
-    <table-edit ref="edit"></table-edit>
+    <table-edit ref="edit" @fetch-data="fetchData"></table-edit>
   </div>
 </template>
 <script>
@@ -129,8 +139,8 @@
     filters: {
       statusFilter(status) {
         const statusMap = {
-          published: 'success',
-          draft: 'gray',
+          admin: 'success',
+          editor: 'warning',
           deleted: 'danger',
         }
         return statusMap[status]
@@ -148,9 +158,9 @@
         selectRows: '',
         elementLoadingText: '正在加载...',
         queryForm: {
-          pageNo: 1,
-          pageSize: 20,
-          title: '',
+          pageIndex: 1,
+          pageSize: 10,
+          keyworld: '',
         },
       }
     },
@@ -207,23 +217,24 @@
         this.fetchData()
       },
       handleCurrentChange(val) {
-        this.queryForm.pageNo = val
+        this.queryForm.pageIndex = val
         this.fetchData()
       },
       handleQuery() {
-        this.queryForm.pageNo = 1
+        this.queryForm.pageIndex = 1
         this.fetchData()
       },
       async fetchData() {
         this.listLoading = true
-        const { data, totalCount } = await getList(this.queryForm)
-        this.list = data
+        const res = await getList(this.queryForm)
+        const { list, total } = res.data
+        this.list = list
         const imageList = []
-        data.forEach((item, index) => {
-          imageList.push(item.img)
+        list.forEach((item, index) => {
+          imageList.push(item.imgface)
         })
         this.imageList = imageList
-        this.total = totalCount
+        this.total = total
         setTimeout(() => {
           this.listLoading = false
         }, 500)

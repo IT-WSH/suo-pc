@@ -121,7 +121,12 @@
         showRegister: false,
         nodeEnv: process.env.NODE_ENV,
         title: this.$baseTitle,
-        form: {},
+        form: {
+          username: '',
+          phone: '',
+          phoneCode: '1234',
+          password: '',
+        },
         registerRules: {
           username: [
             { required: true, trigger: 'blur', message: '请输入用户名' },
@@ -173,14 +178,14 @@
           }
         }, 1000)
       },
-      handleReister() {
+      handleReister(phone) {
         this.$refs['registerForm'].validate(async (valid) => {
           if (valid) {
             const param = {
-              username: this.form.username,
-              phone: this.form.phone,
+              nickname: this.form.username,
+              phone: String(phone) || this.form.phone,
               password: this.form.password,
-              phoneCode: this.form.phoneCode,
+              passwordReset: this.form.password,
             }
             const { msg } = await register(param)
             this.$baseMessage(msg, 'success')

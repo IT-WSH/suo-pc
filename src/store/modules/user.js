@@ -74,11 +74,13 @@ const actions = {
       Vue.prototype.$baseMessage('验证失败，请重新登录...', 'error')
       return false
     }
-    let { permissions, username, avatar } = data
-    if (permissions && username && Array.isArray(permissions)) {
+    let { admin, nickname, imgface } = data
+
+    if (admin && nickname) {
+      let permissions = [admin.name]
       commit('setPermissions', permissions)
-      commit('setUsername', username)
-      commit('setAvatar', avatar)
+      commit('setUsername', nickname)
+      commit('setAvatar', imgface)
       return permissions
     } else {
       Vue.prototype.$baseMessage('用户信息接口异常', 'error')
